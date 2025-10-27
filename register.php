@@ -4,10 +4,11 @@ include 'connection.php';
 if (isset($_POST['register'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $confirm = $_POST['confirm'];
+    $confirm  = $_POST['confirm'];
+    $level    = $_POST['level_akses'];
 
-    // Cek apakah username sudah digunakan
-    $check = mysqli_query($conn, "SELECT * FROM users WHERE username='$username'");
+    // Cek apakah username sudah ada di tabel admin
+    $check = mysqli_query($conn, "SELECT * FROM admin WHERE username='$username'");
     if (mysqli_num_rows($check) > 0) {
         $error = "❌ Username sudah digunakan!";
     } elseif ($password !== $confirm) {
@@ -15,11 +16,15 @@ if (isset($_POST['register'])) {
     } else {
         // Enkripsi password
         $hashed = password_hash($password, PASSWORD_DEFAULT);
-        $query = mysqli_query($conn, "INSERT INTO users (username, password) VALUES ('$username', '$hashed')");
+
+        // Simpan data ke tabel admin
+        $query = mysqli_query($conn, "INSERT INTO admin (username, password, level_akses) 
+                                      VALUES ('$username', '$hashed', '$level')");
+
         if ($query) {
             $success = "✅ Akun berhasil dibuat! Silakan login.";
         } else {
-            $error = "❌ Gagal membuat akun.";
+            $error = "❌ Gagal membuat akun: " . mysqli_error($conn);
         }
     }
 }
@@ -54,6 +59,14 @@ if (isset($_POST['register'])) {
             <div class="mb-3">
               <label class="form-label">Konfirmasi Password</label>
               <input type="password" name="confirm" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Level Akses</label>
+              <select name="level_akses" class="form-select" required>
+                <option value="">-- Pilih Level Akses --</option>
+                <option value="admin">Admin</option>
+                <option value="kasir">Kasir</option>
+              </select>
             </div>
             <button type="submit" name="register" class="btn btn-primary w-100">Daftar</button>
           </form>
