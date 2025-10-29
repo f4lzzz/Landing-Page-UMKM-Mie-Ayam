@@ -13,6 +13,6 @@ if (!$conn) {
     die("❌ Koneksi ke database gagal: " . mysqli_connect_error());
 } else {
     // (Opsional) tampilkan pesan koneksi berhasil untuk debug
-    // echo "✅ Koneksi berhasil!";
+    //echo "✅ Koneksi berhasil!";
 }
 ?>

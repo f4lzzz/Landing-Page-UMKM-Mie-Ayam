@@ -35,9 +35,9 @@ if (isset($_POST['register'])) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register Akun Admin</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/register.css" rel="stylesheet">
 </head>
-<body class="bg-light">
+<body>
 
 <div class="container mt-5">
   <div class="row justify-content-center">
@@ -69,17 +69,18 @@ if (isset($_POST['register'])) {
               </select>
             </div>
             <button type="submit" name="register" class="btn btn-primary w-100">Daftar</button>
+            <br>
+            <br>
+            <a href="login.php" class="btn btn-primary w-100">Login</a>
+            <br>
+            <br>
+            <a href="index.html" class="btn btn-primary w-100">Kembali</a>
           </form>
-
           <?php if (isset($error)): ?>
             <div class="alert alert-danger mt-3"><?= $error; ?></div>
           <?php elseif (isset($success)): ?>
             <div class="alert alert-success mt-3"><?= $success; ?></div>
           <?php endif; ?>
-
-          <div class="text-center mt-3">
-            <a href="login.php">Sudah punya akun? Login di sini</a>
-          </div>
         </div>
       </div>
     </div>
